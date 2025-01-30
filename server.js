@@ -1,3 +1,4 @@
+const connectDB = require('./config/db.js')
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -11,10 +12,7 @@ app.use(express.json());  // Para recibir JSON en las requests
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("🟢 Conectado a MongoDB Atlas"))
-    .catch(err => console.error("🔴 Error de conexión a MongoDB:", err));
+connectDB();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🟢 Servidor corriendo en http://localhost:${PORT}`));
-
